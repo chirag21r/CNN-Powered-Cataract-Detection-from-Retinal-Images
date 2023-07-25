@@ -44,7 +44,7 @@ def main():
         result_placeholder = st.empty()
         result_placeholder.write('Calculating results...')
 
-        predicted_class, accuracy_percentage = predict(model, CLASS_NAMES, image)
+        predicted_class, rounded_percentage = predict(model, CLASS_NAMES, image)
 
         result_placeholder.empty() 
 

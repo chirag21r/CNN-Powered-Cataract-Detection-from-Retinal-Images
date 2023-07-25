@@ -48,12 +48,12 @@ def main():
 
         result_placeholder.empty() 
 
-        if predicted_class and accuracy_percentage:
+        if predicted_class and rounded_percentage:
             st.markdown(f'<p><strong>Predicted Class:</strong> {predicted_class}</p>', unsafe_allow_html=True)
-            if accuracy_percentage >= 0.80:
-                st.markdown(f'<p><strong>Accuracy:</strong> <span style="color: Green;"><strong>{accuracy_percentage}%</strong></span></p>', unsafe_allow_html=True)
+            if rounded_percentage >= 0.80:
+                st.markdown(f'<p><strong>Accuracy:</strong> <span style="color: Green;"><strong>{rounded_percentage}%</strong></span></p>', unsafe_allow_html=True)
             else:
-                st.markdown(f'<p><strong>Accuracy:</strong> <span style="color: Red;"><strong>{accuracy_percentage}%</strong></span></p>', unsafe_allow_html=True)
+                st.markdown(f'<p><strong>Accuracy:</strong> <span style="color: Red;"><strong>{rounded_percentage}%</strong></span></p>', unsafe_allow_html=True)
 
 
 
@@ -93,12 +93,14 @@ def predict(model, class_names, image):
     predictions = model.predict(input_image)
     print(predictions)
 
-    predicted_class = CLASS_NAMES[np.argmax(predictions[0])]
-    accuracy = np.max(predictions[0])
-    accuracy_percentage = '{:.2}'.format(accuracy)
+    predicted_class = CLASS_NAMES[np.argmax(predictions)]
+    accuracy = np.max(predictions)
+    accuracy_percentage = accuracy * 100
+    rounded_percentage = round(accuracy_percentage, 2)
+    print(rounded_percentage)
 
 
-    return predicted_class, float(accuracy_percentage)
+    return predicted_class, rounded_percentage
 
 
 

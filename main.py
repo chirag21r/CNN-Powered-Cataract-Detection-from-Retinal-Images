@@ -50,7 +50,7 @@ def main():
 
         if predicted_class and rounded_percentage:
             st.markdown(f'<p><strong>Predicted Class:</strong> {predicted_class}</p>', unsafe_allow_html=True)
-            if rounded_percentage >= 0.80:
+            if rounded_percentage >= 80.00:
                 st.markdown(f'<p><strong>Accuracy:</strong> <span style="color: Green;"><strong>{rounded_percentage}%</strong></span></p>', unsafe_allow_html=True)
             else:
                 st.markdown(f'<p><strong>Accuracy:</strong> <span style="color: Red;"><strong>{rounded_percentage}%</strong></span></p>', unsafe_allow_html=True)

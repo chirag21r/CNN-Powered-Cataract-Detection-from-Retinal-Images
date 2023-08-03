@@ -18,7 +18,7 @@ def main():
         - The system can predict the following classes: Cataracts, Diabetic Retinopathy, Glaucoma, and Normal.
         """)
 
-        st.markdown("## Procedure")
+        st.markdown("## Steps")
         st.markdown("""
         1. Click the "Upload Image" button to upload a retinal image.
         2. Click the "Predict Eye Disease" button to start the eye disease prediction.

@@ -28,7 +28,8 @@ def main():
         2. Click the "Predict Eye Disease" button to start the eye disease prediction.
         3. Please wait for a few moments to get the result.
         4. The result will be displayed below the image.
-        """)
+        </br>
+        """, unsafe_allow_html=True)
 
         st.markdown("## Confidence")
         st.markdown("""

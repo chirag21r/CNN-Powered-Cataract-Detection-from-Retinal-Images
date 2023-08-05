@@ -26,11 +26,17 @@ def main():
         4. The result will be displayed below the image.
         """)
 
-        st.markdown("## Accuracy")
+        st.markdown("## Confidence")
         st.markdown("""
-        - <p><span style="color: Green;"><strong> Green </strong></span> -- Indicate strong confidence</p>
-        - <p><span style="color: Red;"><strong> Red </strong></span> -- Indicate weak confidence</p>
-        """, unsafe_allow_html=True)
+        - Confidence is determined by the probabilities obtained from the softmax layer of the deep learning model.
+        - The softmax layer converts the final output of the model into probability scores, reflecting the model's confidence in its predictions for each class in the multiclass classification.
+        """)
+        
+        # st.markdown("## Accuracy")
+        # st.markdown("""
+        # - <p><span style="color: Green;"><strong> Green </strong></span> -- Indicate strong confidence</p>
+        # - <p><span style="color: Red;"><strong> Red </strong></span> -- Indicate weak confidence</p>
+        # """, unsafe_allow_html=True)
 
 
     model = load_model()
@@ -50,10 +56,12 @@ def main():
 
         if predicted_class and rounded_percentage:
             st.markdown(f'<p><strong>Predicted Class:</strong> {predicted_class}</p>', unsafe_allow_html=True)
-            if rounded_percentage >= 80.00:
-                st.markdown(f'<p><strong>Accuracy:</strong> <span style="color: Green;"><strong>{rounded_percentage}%</strong></span></p>', unsafe_allow_html=True)
-            else:
-                st.markdown(f'<p><strong>Accuracy:</strong> <span style="color: Red;"><strong>{rounded_percentage}%</strong></span></p>', unsafe_allow_html=True)
+            st.markdown(f'<p><strong>Confidence:</strong> <span style="color: Blue;"><strong>{rounded_percentage}%</strong></span></p>', unsafe_allow_html=True)
+            
+            # if rounded_percentage >= 80.00:
+                # st.markdown(f'<p><strong>Confidence:</strong> <span style="color: Green;"><strong>{rounded_percentage}%</strong></span></p>', unsafe_allow_html=True)
+            # else:
+                # st.markdown(f'<p><strong>Confidence:</strong> <span style="color: Red;"><strong>{rounded_percentage}%</strong></span></p>', unsafe_allow_html=True)
 
 
 

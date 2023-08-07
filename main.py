@@ -16,7 +16,7 @@ def main():
         st.markdown("""
         - This is an eye disease classification system that allows users to upload retinal images and perform predictions.
         - The system can predict the following classes: <p>
-                    <span style="color: Red;"><strong>Cataract</strong></span>, 
+                    <span style="color: Red;"><strong>Cataracts</strong></span>, 
                     <span style="color: Red;"><strong>Diabetic Retinopathy</strong></span>, 
                     <span style="color: Red;"><strong>Glaucoma</strong></span>, 
                     <span style="color: Red;"><strong>Normal</strong></span>.</p>

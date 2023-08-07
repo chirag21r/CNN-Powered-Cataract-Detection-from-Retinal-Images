@@ -37,11 +37,7 @@ def main():
         - The softmax layer converts the final output of the model into probability scores, reflecting the model's confidence in its predictions for each class in the multiclass classification.
         """)
         
-        # st.markdown("## Accuracy")
-        # st.markdown("""
-        # - <p><span style="color: Green;"><strong> Green </strong></span> -- Indicate strong confidence</p>
-        # - <p><span style="color: Red;"><strong> Red </strong></span> -- Indicate weak confidence</p>
-        # """, unsafe_allow_html=True)
+        
 
 
     model = load_model()
@@ -55,7 +51,8 @@ def main():
         result_placeholder = st.empty()
         result_placeholder.write('Calculating results...')
 
-        predicted_class, rounded_percentage = predict(model, CLASS_NAMES, image)
+        preprocessd_image = preprocess_image(image)
+        predicted_class, rounded_percentage = predict(model, CLASS_NAMES, preprocessd_image)
 
         result_placeholder.empty() 
 
@@ -63,10 +60,7 @@ def main():
             st.markdown(f'<p><strong>Predicted Class:</strong> {predicted_class}</p>', unsafe_allow_html=True)
             st.markdown(f'<p><strong>Confidence:</strong> <span style="color: Blue;"><strong>{rounded_percentage}%</strong></span></p>', unsafe_allow_html=True)
             
-            # if rounded_percentage >= 80.00:
-                # st.markdown(f'<p><strong>Confidence:</strong> <span style="color: Green;"><strong>{rounded_percentage}%</strong></span></p>', unsafe_allow_html=True)
-            # else:
-                # st.markdown(f'<p><strong>Confidence:</strong> <span style="color: Red;"><strong>{rounded_percentage}%</strong></span></p>', unsafe_allow_html=True)
+           
 
 
 
@@ -81,24 +75,56 @@ def load_image():
     uploaded_file = st.file_uploader(label='Pick an retinal image to test')
     if uploaded_file is not None:
         image_data = uploaded_file.getvalue()
+        
+        # Display image into streamlit
         st.image(image_data)
 
+        # Load image with BytesIO
         temp = Image.open(BytesIO(image_data))
-        print('dwd', temp)
 
-        return Image.open(BytesIO(image_data))
+        # Resizing the image
+        resized_image = temp.resize((224, 224))
+
+        # Convert PIL image into array
+        image = np.array(resized_image)
+        
+        return image
     else:
         return None
 
 
+def preprocess_image(image):
+    # Histogram Equalization Part
+
+    # Split into 3 channels
+    red, green, blue = cv2.split(image)
+
+    # Apply Histogram Equalization in RED
+    equalization = cv2.equalizeHist(red)
+
+    # Merge back the channels
+    merged_image = cv2.merge((equalization, green, blue))
+
+
+    # Image Segmentation Part
+    segmentation = merged_image.reshape(-1, 3)
+
+    # Declare K-means clustering image segmentation
+    kmeans = KMeans(n_clusters=20, n_init=5)
+
+    # Perform segmentation for the images
+    kmeans.fit(segmentation)
+
+    segmented_images = kmeans.cluster_centers_[kmeans.labels_]
+    segmented_images = segmented_images.reshape(merged_image.shape)
+    st.image(segmented_images.astype("uint8"))
+
+    return segmented_images
+
+
+
 def predict(model, class_names, image):
-     # Resizing the image
-    resized_image = image.resize((224, 224))
-
-    # Convert PIL image into array
-    image = np.array(resized_image)
-
-    # # Normalize the image
+    # Normalize the image
     normalized_image = image / 255.0
 
     input_image = np.expand_dims(normalized_image, axis=0)
@@ -106,7 +132,7 @@ def predict(model, class_names, image):
     predictions = model.predict(input_image)
     print(predictions)
 
-    predicted_class = CLASS_NAMES[np.argmax(predictions)]
+    predicted_class = class_names[np.argmax(predictions)]
     accuracy = np.max(predictions)
     accuracy_percentage = accuracy * 100
     rounded_percentage = round(accuracy_percentage, 2)
@@ -114,8 +140,6 @@ def predict(model, class_names, image):
 
 
     return predicted_class, rounded_percentage
-
-
 
 
 

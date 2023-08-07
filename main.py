@@ -53,8 +53,8 @@ def main():
         result_placeholder = st.empty()
         result_placeholder.write('Calculating results...')
 
-        preprocessd_image = preprocess_image(image)
-        predicted_class, rounded_percentage = predict(model, CLASS_NAMES, preprocessd_image)
+        preprocessed_image = preprocess_image(image)
+        predicted_class, rounded_percentage = predict(model, CLASS_NAMES, preprocessed_image)
 
         result_placeholder.empty() 
 

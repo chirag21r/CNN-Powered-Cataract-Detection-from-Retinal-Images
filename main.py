@@ -117,7 +117,7 @@ def preprocess_image(image):
 
     segmented_images = kmeans.cluster_centers_[kmeans.labels_]
     segmented_images = segmented_images.reshape(merged_image.shape)
-    st.image(segmented_images.astype("uint8"))
+    # st.image(segmented_images.astype("uint8"))
 
     return segmented_images
 

@@ -77,15 +77,15 @@ def load_image():
     uploaded_file = st.file_uploader(label='Pick an retinal image to test')
     if uploaded_file is not None:
         image_data = uploaded_file.getvalue()
-        
-        # Display image into streamlit
-        st.image(image_data)
 
         # Load image with BytesIO
         temp = Image.open(BytesIO(image_data))
 
         # Resizing the image
         resized_image = temp.resize((224, 224))
+
+        # Display image into streamlit
+        st.image(resized_image)
 
         # Convert PIL image into array
         image = np.array(resized_image)

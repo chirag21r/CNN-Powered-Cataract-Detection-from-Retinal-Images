@@ -11,7 +11,7 @@ CLASS_NAMES = ['Cataracts', 'Diabetic Retinopathy', 'Glaucoma', 'Normal']
 
 
 def main():
-    st.title('EYE DISEASE CLASSIFICATION')
+    st.title('A-EYE: EYE DISEASE CLASSIFIER')
 
     with st.expander("Instruction"):
         st.markdown("## Description")

@@ -1,7 +1,0 @@
-streamlit
-tensorflow==2.10.1
-pillow
-numpy
-h5py
-opencv-python==4.7.0.72
-scikit-learn==1.2.1
